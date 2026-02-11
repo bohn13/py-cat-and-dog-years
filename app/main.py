@@ -1,26 +1,37 @@
 def get_human_age(cat_age: int, dog_age: int) -> list:
 
-    human_age_from_cat = 0
-    human_age_from_dog = 0
+    for age in (cat_age, dog_age):
+        if not isinstance(age, int) or isinstance(age, bool):
+            raise TypeError("Age must be an integer")
 
-    if cat_age >= 15:
-        human_age_from_cat += 1
-        cat_age -= 15
-    if cat_age >= 9:
-        human_age_from_cat += 1
-        cat_age -= 9
+    def cat_to_human(age: int) -> int:
+        human = 0
+        if age >= 15:
+            human += 1
+            age -= 15
+        else:
+            return 0
+        if age >= 9:
+            human += 1
+            age -= 9
+        else:
+            return human
+        human += age // 4
+        return human
 
-    if cat_age > 0:
-        human_age_from_cat += cat_age // 4
+    def dog_to_human(age: int) -> int:
+        human = 0
+        if age >= 15:
+            human += 1
+            age -= 15
+        else:
+            return 0
+        if age >= 9:
+            human += 1
+            age -= 9
+        else:
+            return human
+        human += age // 5
+        return human
 
-    if dog_age >= 15:
-        human_age_from_dog += 1
-        dog_age -= 15
-    if dog_age >= 9:
-        human_age_from_dog += 1
-        dog_age -= 9
-
-    if dog_age > 0:
-        human_age_from_dog += dog_age // 5
-
-    return [human_age_from_cat, human_age_from_dog]
+    return [cat_to_human(cat_age), dog_to_human(dog_age)]
