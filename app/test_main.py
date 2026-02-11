@@ -39,13 +39,14 @@ def test_should_be_right_types(cat_age: int, dog_age: int) -> None:
 
 
 @pytest.mark.parametrize(
-    "cat_age, dog_age, expected",
+    "cat_age, dog_age",
     [
-        (-1, 10, [0, 00]),
-        (10, -1, [0, 0]),
-        (-5, -10, [0, 0]),
-        (1000, 1000, [246, 197]),
+        (-1, 10),
+        (10, -1),
+        (-5, -10),
+        (1000, -1000),
     ]
 )
-def test_extreme_values(cat_age: int, dog_age: int, expected: int) -> None:
-    assert get_human_age(cat_age, dog_age) == expected
+def test_extreme_values(cat_age: int, dog_age: int) -> None:
+    with pytest.raises(ValueError):
+        get_human_age(cat_age, dog_age)
